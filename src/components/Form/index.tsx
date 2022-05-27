@@ -43,7 +43,7 @@ export function Form({ feedbackType }: Props) {
         <ScreenshotButton
           onTakeShot={() => {}}
           onRemoveShot={() => {}}
-          screenshot=""
+          screenshot="https://github.com/macedo-developer.png"
         />
         <Button isLoading={false} />
       </View>
