@@ -7,6 +7,8 @@ import { FeedbackType } from "./../Widget";
 
 import { styles } from "./styles";
 import { feedbackTypes } from "../../utils/feedbackTypes";
+import { ScreenshotButton } from "../ScreenshotButton";
+import { Button } from "../Button";
 
 interface Props {
   feedbackType: FeedbackType;
@@ -29,6 +31,21 @@ export function Form({ feedbackType }: Props) {
           <Image source={feedbackTypeInfo.image} style={styles.image} />
           <Text style={styles.titleText}>{feedbackTypeInfo.title}</Text>
         </View>
+      </View>
+
+      <TextInput
+        multiline
+        style={styles.input}
+        placeholder="Algo não está funcionando bem? Queremos corrigir. Conte os detalhes..."
+        placeholderTextColor={theme.colors.text_secondary}
+      ></TextInput>
+      <View style={styles.footer}>
+        <ScreenshotButton
+          onTakeShot={() => {}}
+          onRemoveShot={() => {}}
+          screenshot=""
+        />
+        <Button isLoading={false} />
       </View>
     </View>
   );
