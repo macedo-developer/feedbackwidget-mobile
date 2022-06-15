@@ -3,6 +3,8 @@ import { ArrowLeft } from "phosphor-react-native";
 import { View, TextInput, Image, Text, TouchableOpacity } from "react-native";
 import { theme } from "../../theme";
 
+import * as FileSystem from "expo-file-system";
+
 import { FeedbackType } from "./../Widget";
 
 import { styles } from "./styles";
@@ -47,16 +49,18 @@ export function Form({
 
     setIsSendingFeedback(true);
 
+    const screenshotBase64 =
+      screenshot &&
+      FileSystem.readAsStringAsync(screenshot, { encoding: "base64" });
+
     try {
-      await api
-        .post("/feedbacks", {
-          type: feedbackType,
-          screenshot,
-          comment,
-        })
-        .then(() => {
-          onFeedbackSent();
-        });
+      await api.post("/feedbacks", {
+        type: feedbackType,
+        screenshot: `data:image/png;base64, ${screenshotBase64}`,
+        comment,
+      });
+
+      onFeedbackSent();
     } catch (error) {
       console.log(error);
       setIsSendingFeedback(false);
